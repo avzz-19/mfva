@@ -3,14 +3,10 @@ workflows:
     environment:
       groups:
         - appknox_credentials
+      image: codemagic/android:latest
     scripts:
       - name: Checkout Code
         script: git clone https://github.com/avzz-19/mfva.git
-
-      - name: Set Up JDK 1.8
-        script: |
-          sudo apt-get update
-          sudo apt-get install openjdk-8-jdk -y
 
       - name: Grant Execute Permission for Gradlew
         script: chmod +x gradlew
