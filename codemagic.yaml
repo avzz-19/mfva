@@ -4,10 +4,31 @@ workflows:
       groups:
         - appknox_credentials
     scripts:
-        - name: Appknox binary installation
-          script: curl -L https://github.com/appknox/appknox-go/releases/latest/download/appknox-`uname -s`-x86_64 > /usr/local/bin/appknox && chmod +x /usr/local/bin/appknox 
-        - name: Upload binary to Appknox
-          script: appknox upload PATH_TO_APP_BINARY
-        - name: Check vulnerability risk level
-          script: appknox cicheck <file-id> --risk_threshold <low|medium|high|critical>
+      - name: Checkout Code
+        script: git clone https://github.com/avzz-19/mfva.git
 
+      - name: Set Up JDK 1.8
+        script: |
+          sudo apt-get update
+          sudo apt-get install openjdk-8-jdk -y
+
+      - name: Grant Execute Permission for Gradlew
+        script: chmod +x gradlew
+
+      - name: Build the App
+        script: ./gradlew bundle
+
+      - name: Upload AAB Artifact
+        script: |
+          cp app/build/outputs/bundle/debug/app.aab ./
+
+      - name: Install Appknox Binary
+        script: |
+          curl -L https://github.com/appknox/appknox-go/releases/latest/download/appknox-`uname -s`-x86_64 > /usr/local/bin/appknox
+          chmod +x /usr/local/bin/appknox 
+
+      - name: Upload Binary to Appknox
+        script: appknox upload ./app.aab
+
+      - name: Check Vulnerability Risk Level
+        script: appknox cicheck 72085 --risk_threshold HIGH
