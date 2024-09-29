@@ -13,7 +13,7 @@ workflows:
           chmod +x /usr/local/bin/appknox 
 
       - name: Upload Binary to Appknox
-        script: appknox upload ./app.aab
+        script: appknox upload ./MFVA.aab
 
       - name: Check Vulnerability Risk Level
         script: appknox cicheck 72085 --risk_threshold HIGH
