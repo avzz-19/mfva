@@ -1,1 +1,13 @@
+workflows:
+  workflow-name:
+    environment:
+      groups:
+        - appknox_credentials
+    scripts:
+        - name: Appknox binary installation
+          script: curl -L https://github.com/appknox/appknox-go/releases/latest/download/appknox-`uname -s`-x86_64 > /usr/local/bin/appknox && chmod +x /usr/local/bin/appknox 
+        - name: Upload binary to Appknox
+          script: appknox upload PATH_TO_APP_BINARY
+        - name: Check vulnerability risk level
+          script: appknox cicheck <file-id> --risk_threshold <low|medium|high|critical>
 
