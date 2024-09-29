@@ -3,7 +3,6 @@ workflows:
     environment:
       groups:
         - appknox_credentials
-      image: codemagic/android:latest
     scripts:
       - name: Checkout Code
         script: git clone https://github.com/avzz-19/mfva.git
@@ -28,3 +27,6 @@ workflows:
 
       - name: Check Vulnerability Risk Level
         script: appknox cicheck 72085 --risk_threshold HIGH
+
+# Specify the image at the top level
+image: codemagic/android:latest
