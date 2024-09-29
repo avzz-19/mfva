@@ -16,4 +16,4 @@ workflows:
         script: appknox upload ./MFVA.aab
 
       - name: Check Vulnerability Risk Level
-        script: appknox cicheck 72085 --risk_threshold high
+        script: appknox cicheck 72085 --risk-threshold high
