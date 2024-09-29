@@ -7,16 +7,6 @@ workflows:
       - name: Checkout Code
         script: git clone https://github.com/avzz-19/mfva.git
 
-      - name: Grant Execute Permission for Gradlew
-        script: chmod +x gradlew
-
-      - name: Build the App
-        script: ./gradlew bundle
-
-      - name: Upload AAB Artifact
-        script: |
-          cp app/build/outputs/bundle/debug/app.aab ./
-
       - name: Install Appknox Binary
         script: |
           curl -L https://github.com/appknox/appknox-go/releases/latest/download/appknox-`uname -s`-x86_64 > /usr/local/bin/appknox
@@ -27,6 +17,3 @@ workflows:
 
       - name: Check Vulnerability Risk Level
         script: appknox cicheck 72085 --risk_threshold HIGH
-
-# Specify the image at the top level
-image: codemagic/android:latest
